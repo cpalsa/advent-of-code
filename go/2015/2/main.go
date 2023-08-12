@@ -22,8 +22,7 @@ func main() {
 	paper := 0
 	ribbon := 0
 	for _, dims := range dimensions {
-		minArea, err := util.Min(dims[0]*dims[1], dims[0]*dims[2], dims[1]*dims[2])
-		util.HandleFatal(err)
+		minArea := min(dims[0]*dims[1], dims[0]*dims[2], dims[1]*dims[2])
 		paper += (2 * dims[0] * dims[1]) + (2 * dims[1] * dims[2]) + (2 * dims[2] * dims[0]) + minArea
 
 		// sort dims ascending, we don't care about keep position anymore for shortest perimeter

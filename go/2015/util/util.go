@@ -46,6 +46,7 @@ func PrintMap[K comparable, V any](m map[K]V) {
 }
 
 // Returns the minimum value of given Orderables
+// DEPRECATED -- go 1.21 also introduced min/max funcs
 func Min[T cmp.Ordered](vals ...T) (min T, err error) {
 	if len(vals) == 0 {
 		return min, errors.New("no comparable values")
