@@ -22,7 +22,7 @@ func main() {
 		hash = fmt.Sprintf("%x", md5.Sum([]byte(test)))
 	}
 
-	fmt.Printf("The lowest positive integer that yields a hash starting with five zeroes (%v) is %v\n", hash, num)
+	fmt.Printf("(Part 1) The lowest positive integer that yields a hash starting with five zeroes (%v) is %v\n", hash, num)
 
 	num = 0
 	hash = ""
@@ -32,5 +32,5 @@ func main() {
 		hash = fmt.Sprintf("%x", md5.Sum([]byte(test)))
 	}
 
-	fmt.Printf("The lowest positive integer that yields a hash starting with six zeroes (%v) is %v\n", hash, num)
+	fmt.Printf("(Part 2) The lowest positive integer that yields a hash starting with six zeroes (%v) is %v\n", hash, num)
 }

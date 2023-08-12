@@ -31,8 +31,8 @@ func main() {
 		ribbon += (2 * dims[0]) + (2 * dims[1]) + (dims[0] * dims[1] * dims[2])
 	}
 
-	fmt.Printf("The elves require %v sqft of wrapping paper\n", paper)
-	fmt.Printf("The elves require %v feet of ribbon\n", ribbon)
+	fmt.Printf("(Part 1) The elves require %v sqft of wrapping paper\n", paper)
+	fmt.Printf("(Part 2) The elves require %v feet of ribbon\n", ribbon)
 }
 
 func parseDimensions(input []byte) ([][]int, error) {

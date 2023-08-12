@@ -54,7 +54,7 @@ func main() {
 		deliveries[pos]++
 	}
 
-	fmt.Printf("Working alone, Santa delivered presents to %v houses\n", len(deliveries))
+	fmt.Printf("(Part 1) Working alone, Santa delivered presents to %v houses\n", len(deliveries))
 
 	// Both human santa and robo-santa start at 0,0
 	santaPos := position{0, 0}
@@ -85,5 +85,5 @@ func main() {
 		santaMoves = !santaMoves
 	}
 
-	fmt.Printf("Working together, Santa and Robo-Santa delivered presents to %v houses\n", len(deliveries))
+	fmt.Printf("(Part 2) Working together, Santa and Robo-Santa delivered presents to %v houses\n", len(deliveries))
 }

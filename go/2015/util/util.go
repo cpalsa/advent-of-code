@@ -27,6 +27,24 @@ func HandleFatal(err error) {
 	}
 }
 
+func PrintSlice[T any](s []T) {
+	// Not sure how to make this generic to only range-able to also handle maps
+	fmt.Println("slice[")
+	for k, v := range s {
+		fmt.Printf("  %v: %+v,\n", k, v)
+	}
+	fmt.Println("]")
+}
+
+func PrintMap[K comparable, V any](m map[K]V) {
+	// Not sure how to make this generic to only range-able to also handle slices
+	fmt.Println("map{")
+	for k, v := range m {
+		fmt.Printf("  %v: %+v,\n", k, v)
+	}
+	fmt.Println("}")
+}
+
 // Returns the minimum value of given Orderables
 func Min[T cmp.Ordered](vals ...T) (min T, err error) {
 	if len(vals) == 0 {
