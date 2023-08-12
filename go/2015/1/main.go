@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	util "github.com/cpalsa/advent-of-code/go/2015/util"
+	util "github.com/cpalsa/advent-of-code/go/util"
 )
 
 const inputFile = "input.txt"

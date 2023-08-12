@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/cpalsa/advent-of-code/go/2015/util"
+	"github.com/cpalsa/advent-of-code/go/util"
 )
 
 const inputFile = "input.txt"
