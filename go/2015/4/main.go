@@ -11,8 +11,7 @@ import (
 const inputFile = "input.txt"
 
 func main() {
-	input, err := util.LoadInput(inputFile)
-	util.HandleFatal(err)
+	input := util.ExitIfError(util.LoadInput(inputFile))
 
 	num := 0
 	hash := ""

@@ -10,28 +10,6 @@ import (
 
 const inputFile = "input.txt"
 
-func main() {
-	input, err := util.LoadInput(inputFile)
-	util.HandleFatal(err)
-
-	list := strings.Split(string(input), "\n")
-	count := 0
-	for _, str := range list {
-		if isNice1(str) {
-			count++
-		}
-	}
-	fmt.Printf("(Part 1) Santa has %v nice strings using the first set of rules\n", count)
-
-	count = 0
-	for _, str := range list {
-		if isNice2(str) {
-			count++
-		}
-	}
-	fmt.Printf("(Part 2) Santa has %v nice strings using the second set of rules\n", count)
-}
-
 func isNice2(str string) (nice bool) {
 	// need two pairs (2 x 2) of runes not overlapping
 	if utf8.RuneCountInString(str) < 4 {
@@ -138,4 +116,25 @@ func isBadString(last rune, current rune) bool {
 	}
 
 	return false
+}
+
+func main() {
+	input := util.ExitIfError(util.LoadInput(inputFile))
+
+	list := strings.Split(string(input), "\n")
+	count := 0
+	for _, str := range list {
+		if isNice1(str) {
+			count++
+		}
+	}
+	fmt.Printf("(Part 1) Santa has %v nice strings using the first set of rules\n", count)
+
+	count = 0
+	for _, str := range list {
+		if isNice2(str) {
+			count++
+		}
+	}
+	fmt.Printf("(Part 2) Santa has %v nice strings using the second set of rules\n", count)
 }

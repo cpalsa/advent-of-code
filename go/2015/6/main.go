@@ -21,9 +21,47 @@ type command struct {
 	end    position
 }
 
+func parseCommands(input []byte) []command {
+	cmds := []command{}
+
+	for _, row := range strings.Split(string(input), "\n") {
+		cmd := command{}
+		str := strings.Split(row, " ")
+
+		if strings.HasPrefix(row, "toggle") {
+			cmd.action = "toggle"
+			cmd.start = parsePosition(str[1])
+			cmd.end = parsePosition(str[3])
+			cmds = append(cmds, cmd)
+			continue
+		}
+
+		if strings.HasPrefix(row, "turn off") {
+			cmd.action = "off"
+		} else {
+			cmd.action = "on"
+		}
+
+		cmd.start = parsePosition(str[2])
+		cmd.end = parsePosition(str[4])
+		cmds = append(cmds, cmd)
+	}
+
+	return cmds
+}
+
+func parsePosition(str string) position {
+	pos := position{}
+	coords := strings.Split(string(str), ",")
+
+	pos.x = util.ExitIfError(strconv.Atoi(coords[0]))
+	pos.y = util.ExitIfError(strconv.Atoi(coords[1]))
+
+	return pos
+}
+
 func main() {
-	input, err := util.LoadInput(inputFile)
-	util.HandleFatal(err)
+	input := util.ExitIfError(util.LoadInput(inputFile))
 
 	commands := parseCommands(input)
 
@@ -78,51 +116,4 @@ func main() {
 	}
 
 	fmt.Printf("(Part 2) The total brightness is %v\n", brightness)
-}
-
-func parseCommands(input []byte) []command {
-	cmds := []command{}
-
-	for _, row := range strings.Split(string(input), "\n") {
-		cmd := command{}
-		str := strings.Split(row, " ")
-
-		if strings.HasPrefix(row, "toggle") {
-			cmd.action = "toggle"
-			cmd.start = parsePosition(str[1])
-			cmd.end = parsePosition(str[3])
-			cmds = append(cmds, cmd)
-			continue
-		}
-
-		if strings.HasPrefix(row, "turn off") {
-			cmd.action = "off"
-		} else {
-			cmd.action = "on"
-		}
-
-		cmd.start = parsePosition(str[2])
-		cmd.end = parsePosition(str[4])
-		cmds = append(cmds, cmd)
-	}
-
-	return cmds
-}
-
-func parsePosition(str string) position {
-	var err error
-	pos := position{}
-	coords := strings.Split(string(str), ",")
-
-	pos.x, err = strconv.Atoi(coords[0])
-	if err != nil {
-		util.HandleFatal(err)
-	}
-
-	pos.y, err = strconv.Atoi(coords[1])
-	if err != nil {
-		util.HandleFatal(err)
-	}
-
-	return pos
 }

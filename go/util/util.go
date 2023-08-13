@@ -8,6 +8,19 @@ import (
 	"path/filepath"
 )
 
+func ExitFatal(err error) {
+	fmt.Fprintln(os.Stderr, err)
+	os.Exit(1)
+}
+
+func ExitIfError[T any](v T, err error) T {
+	if err != nil {
+		ExitFatal(err)
+	}
+
+	return v
+}
+
 func LoadInput(fname string) (input []byte, err error) {
 	binPath, err := os.Executable()
 	if err != nil {
@@ -18,13 +31,6 @@ func LoadInput(fname string) (input []byte, err error) {
 	input, err = os.ReadFile(binDir + "/" + fname)
 
 	return input, err
-}
-
-func HandleFatal(err error) {
-	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
-	}
 }
 
 // Iterates over the input slice, passing the index and value to the callback function for each iteration.
@@ -133,7 +139,7 @@ func MapVals[K comparable, V any](m map[K]V) []V {
 // Returns the minimum value respective to the type of the values given
 func Min[T cmp.Ordered](vals ...T) T {
 	if len(vals) == 0 {
-		HandleFatal(errors.New("Min: no values to compare"))
+		ExitFatal(errors.New("Min: no values to compare"))
 	}
 
 	if len(vals) == 1 {
@@ -153,7 +159,7 @@ func Min[T cmp.Ordered](vals ...T) T {
 // Returns the maximum value respective to the type of the values given
 func Max[T cmp.Ordered](vals ...T) T {
 	if len(vals) == 0 {
-		HandleFatal(errors.New("Max: no values to compare"))
+		ExitFatal(errors.New("Max: no values to compare"))
 	}
 
 	if len(vals) == 1 {

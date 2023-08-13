@@ -53,8 +53,7 @@ func stringEncode(str string) string {
 }
 
 func main() {
-	input, err := util.LoadInput(inputFile)
-	util.HandleFatal(err)
+	input := util.ExitIfError(util.LoadInput(inputFile))
 
 	list := strings.Split(string(input), "\n")
 

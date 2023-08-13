@@ -12,8 +12,7 @@ const up = '('
 const down = ')'
 
 func main() {
-	input, err := util.LoadInput(inputFile)
-	util.HandleFatal(err)
+	input := util.ExitIfError(util.LoadInput(inputFile))
 
 	floor, pos := 0, -1
 	for i, direction := range string(input) {

@@ -135,8 +135,7 @@ func (c circuit) eval(commands []command) {
 }
 
 func main() {
-	input, err := util.LoadInput(inputFile)
-	util.HandleFatal(err)
+	input := util.ExitIfError(util.LoadInput(inputFile))
 
 	commands := parseCommands(input)
 	circuit := make(circuit)

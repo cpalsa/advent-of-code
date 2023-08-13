@@ -24,10 +24,7 @@ func parsePaths(input []byte) map[string][]path {
 		pieces := strings.Split(p, " ")
 		start := pieces[0]
 		end := pieces[2]
-		dist, err := strconv.Atoi(pieces[4])
-		if err != nil {
-			util.HandleFatal(err)
-		}
+		dist := util.ExitIfError(strconv.Atoi(pieces[4]))
 
 		// make sure both location mappings exist and have their list of destinations initialized
 		if _, ok := paths[start]; !ok {
@@ -44,12 +41,12 @@ func parsePaths(input []byte) map[string][]path {
 	return paths
 }
 
-func getShortestPath(paths []path) path {
+func getShortestPath(paths []path) (path, error) {
 	if len(paths) == 0 {
-		util.HandleFatal(errors.New("no paths to compare"))
+		return path{}, errors.New("no paths to compare")
 	}
 	if len(paths) == 1 {
-		return paths[0]
+		return paths[0], nil
 	}
 
 	shortest := paths[0]
@@ -59,15 +56,15 @@ func getShortestPath(paths []path) path {
 		}
 	}
 
-	return shortest
+	return shortest, nil
 }
 
-func getLongestPath(paths []path) path {
+func getLongestPath(paths []path) (path, error) {
 	if len(paths) == 0 {
-		util.HandleFatal(errors.New("no paths to compare"))
+		return path{}, errors.New("no paths to compare")
 	}
 	if len(paths) == 1 {
-		return paths[0]
+		return paths[0], nil
 	}
 
 	longest := paths[0]
@@ -77,12 +74,11 @@ func getLongestPath(paths []path) path {
 		}
 	}
 
-	return longest
+	return longest, nil
 }
 
 func main() {
-	input, err := util.LoadInput(inputFile)
-	util.HandleFatal(err)
+	input := util.ExitIfError(util.LoadInput(inputFile))
 
 	paths := parsePaths(input)
 
@@ -95,7 +91,7 @@ func main() {
 
 		for len(choices) != 0 {
 			// get the shortest path from our choices
-			shortest := getShortestPath(choices)
+			shortest := util.ExitIfError(getShortestPath(choices))
 			shortestRoutes[start] = append(shortestRoutes[start], shortest)
 			shortestDistances[start] += shortest.dist
 			visited = append(visited, shortest.dest)
@@ -116,7 +112,7 @@ func main() {
 
 		for len(choices) != 0 {
 			// get the longest path from our choices
-			longest := getLongestPath(choices)
+			longest := util.ExitIfError(getLongestPath(choices))
 			longestRoutes[start] = append(longestRoutes[start], longest)
 			longestDistances[start] += longest.dist
 			visited = append(visited, longest.dest)

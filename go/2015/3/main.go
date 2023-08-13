@@ -34,8 +34,7 @@ func (p position) move(direction rune) position {
 }
 
 func main() {
-	input, err := util.LoadInput(inputFile)
-	util.HandleFatal(err)
+	input := util.ExitIfError(util.LoadInput(inputFile))
 
 	// let's assume santa starts at 0,0
 	pos := position{0, 0}
