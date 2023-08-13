@@ -17,6 +17,7 @@ type path struct {
 }
 
 func parsePaths(input []byte) map[string][]path {
+	// A graph may be a better "long term" solution if we were to need to expand
 	paths := make(map[string][]path)
 
 	for _, p := range strings.Split(string(input), "\n") {
